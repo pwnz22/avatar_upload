@@ -11387,7 +11387,25 @@ module.exports = __webpack_require__(9);
 
     methods: {
         upload: function upload(e) {
-            console.log(e);
+            var _this = this;
+
+            this.uploading = true;
+
+            return axios.post(this.endpoint, this.packageUploads(e)).then(function (response) {
+                _this.uploading = false;
+
+                return Promise.resolve(response);
+            }).catch(function (error) {
+                _this.uploading = false;
+
+                return Promise.reject(error);
+            });
+        },
+        packageUploads: function packageUploads(e) {
+            var fileData = new FormData();
+            fileData.append(this.sendAs, e.target.files[0]);
+
+            return fileData;
         }
     }
 });
