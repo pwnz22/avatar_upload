@@ -17,10 +17,26 @@
 </template>
 
 <script>
+    import upload from '../mixins/upload'
+
     export default {
+        props: ['currentAvatar'],
+
+        data() {
+            return {
+                errors: [],
+                avatar: {
+                    id: null,
+                    path: this.currentAvatar
+                }
+            }
+        },
+
+        mixins: [upload],
+
         methods: {
             fileChange(e) {
-                console.log(e)
+                this.upload(e)
             }
         }
     }

@@ -1794,6 +1794,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_upload__ = __webpack_require__(44);
 //
 //
 //
@@ -1813,10 +1814,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['currentAvatar'],
+
+    data: function data() {
+        return {
+            errors: [],
+            avatar: {
+                id: null,
+                path: this.currentAvatar
+            }
+        };
+    },
+
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_upload__["a" /* default */]],
+
     methods: {
         fileChange: function fileChange(e) {
-            console.log(e);
+            this.upload(e);
         }
     }
 });
@@ -11334,6 +11352,45 @@ module.exports = g;
 __webpack_require__(8);
 module.exports = __webpack_require__(9);
 
+
+/***/ }),
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    props: {
+        endpoint: {
+            type: String
+        },
+
+        sendAs: {
+            type: String,
+            default: 'file'
+        }
+    },
+
+    data: function data() {
+        return {
+            uploading: true
+        };
+    },
+
+
+    methods: {
+        upload: function upload(e) {
+            console.log(e);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
