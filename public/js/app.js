@@ -1813,6 +1813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -1834,7 +1835,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fileChange: function fileChange(e) {
-            this.upload(e);
+            var _this = this;
+
+            this.upload(e).then(function (response) {
+                _this.avatar = response.data.data;
+            }).catch(function (error) {
+                if (error.response.status === 422) {
+                    _this.errors = error.response.data;
+                    return;
+                }
+
+                _this.errors = 'Something went wrong, please try again.';
+            });
         }
     }
 });
@@ -1954,34 +1966,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "avatar-upload"
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "avatar"
+    staticClass: "form-group",
+    class: {
+      'has-error': _vm.errors[this.sendAs]
     }
-  }, [_vm._v("Avatar")]), _vm._v(" "), _c('input', {
+  }, [_c('label', {
+    staticClass: "control-label",
     attrs: {
-      "type": "file"
+      "for": "sendAs"
+    }
+  }, [_vm._v("Avatar")]), _vm._v(" "), (_vm.uploading) ? _c('div', [_vm._v("Processing")]) : _c('input', {
+    attrs: {
+      "type": "file",
+      "name": _vm.sendAs
     },
     on: {
       "change": _vm.fileChange
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), (_vm.errors[this.sendAs]) ? _c('div', {
     staticClass: "help-block"
-  }, [_vm._v("\n            Help\n        ")])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors[this.sendAs][0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), (_vm.avatar.path) ? _c('div', [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "avatar_id"
+    },
+    domProps: {
+      "value": _vm.avatar.id
     }
   }), _vm._v(" "), _c('img', {
     staticClass: "avatar",
     attrs: {
+      "src": _vm.avatar.path,
       "alt": "Current Avatar"
     }
-  })])
-}]}
+  })]) : _vm._e()])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -11380,7 +11399,7 @@ module.exports = __webpack_require__(9);
 
     data: function data() {
         return {
-            uploading: true
+            uploading: false
         };
     },
 
