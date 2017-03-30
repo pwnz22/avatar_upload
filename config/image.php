@@ -2,9 +2,9 @@
 
 return [
 
-    'image' => [
-        'absolute' => public_path($relative = 'img/avatar'),
-        'relative' => null
+    'path' => [
+        'absolute' => public_path($relative = 'image/avatar'),
+        'relative' => $relative
     ]
 
 ];
