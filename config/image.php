@@ -2,7 +2,7 @@
 
 return [
 
-    image => [
+    'image' => [
         'absolute' => public_path($relative = 'img/avatar'),
         'relative' => null
     ]
