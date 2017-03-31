@@ -15,4 +15,9 @@ class Image extends Model
     {
         return config('image.path.relative') . $this->path;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
